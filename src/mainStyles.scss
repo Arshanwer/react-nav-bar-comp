@@ -1,3 +1,229 @@
-.header {
-  background: green;
+.ci {
+  &-side-bar {
+    @mixin content-mixin {
+      width: 100%;
+      // height: 100%;
+      padding-top: 4rem;
+    }
+    @mixin content-mixin-top {
+      width: 100%;
+      //   padding: 1rem;
+    }
+
+    @mixin left-right-toggle-burger {
+      .nav-icon {
+        margin: 1em;
+        // margin-top: 2rem;
+        width: 35px;
+        // transition: all 0.4s ease-in-out;
+      }
+
+      .nav-icon:after,
+      .nav-icon:before,
+      .nav-icon div {
+        background-color: rgb(7, 7, 7);
+        border-radius: 3px;
+        content: "";
+        display: block;
+        height: 4px;
+        margin: 6px 0;
+        transition: all 0.4s ease-in-out;
+      }
+    }
+
+    @mixin left-toggle-active {
+      position: absolute;
+      right: 0;
+      .nav-icon {
+        margin-top: 1rem;
+      }
+
+      .nav-icon:before {
+        transform: translateY(12px) rotate(135deg);
+      }
+
+      .nav-icon:after {
+        transform: translateY(-8px) rotate(-135deg);
+      }
+
+      .nav-icon div {
+        transform: scale(0);
+      }
+    }
+
+    @mixin right-toggle-active {
+      position: absolute;
+      right: 284px;
+      .nav-icon {
+        margin-top: 1rem;
+      }
+
+      .nav-icon:before {
+        transform: translateY(12px) rotate(135deg);
+      }
+
+      .nav-icon:after {
+        transform: translateY(-9px) rotate(-135deg);
+      }
+
+      .nav-icon div {
+        transform: scale(0);
+      }
+    }
+
+    &-right {
+      position: relative;
+      float: right;
+      // position: absolute;
+      // right: 0;
+      .toggle {
+        cursor: pointer;
+        float: left;
+        transition: all 0.3s;
+        // position: absolute;
+        // right: 0;
+        @include left-right-toggle-burger;
+      }
+      .nav-bar-container {
+        display: flex;
+        width: 0;
+        height: 100vh;
+        // background: lightblue;
+        transition: all 0.3s;
+        overflow-x: hidden;
+        .content {
+          @include content-mixin;
+        }
+      }
+      > .active {
+        width: 350px;
+        background: gray;
+      }
+      .toggle-active {
+        @include right-toggle-active;
+      }
+    }
+    &-left {
+      position: relative;
+      float: left;
+      //   animation-duration: 0.5s;
+      //   animation-name: slide-in;
+      //   animation-fill-mode: forwards;
+      .toggle {
+        cursor: pointer;
+        float: right;
+        @include left-right-toggle-burger;
+      }
+      .nav-bar-container {
+        display: flex;
+        width: 0;
+        height: 100vh;
+        // background: lightblue;
+        transition: all 0.3s;
+        overflow-x: hidden;
+        .content {
+          @include content-mixin;
+        }
+      }
+      > .active {
+        width: 350px;
+        background: gray;
+      }
+      .toggle-active {
+        @include left-toggle-active;
+      }
+    }
+    &-top {
+      float: none;
+      .toggle {
+        display: none;
+      }
+      .nav-bar-container {
+        display: flex;
+        width: 100%;
+        // height: 60px;
+        // background: lightblue;
+        transition: all 0.3s;
+        overflow-x: hidden;
+        .content {
+          @include content-mixin-top;
+        }
+      }
+    }
+
+    @media (max-width: 575.98px) {
+      .ci {
+        &-side-bar {
+          &-right {
+            > .active {
+              width: 275px;
+              background: gray !important;
+            }
+          }
+          &-left {
+            > .active {
+              width: 275px;
+              background: gray !important;
+            }
+          }
+          &-top {
+            .toggle {
+              cursor: pointer;
+              display: block;
+              right: 0;
+              position: absolute;
+            }
+            .nav-bar-container {
+              display: flex;
+              width: 100%;
+              //   height: 60px;
+              //   background: lightblue;
+              transition: all 0.3s;
+              overflow-x: hidden;
+              overflow-y: hidden;
+              position: absolute;
+              top: 60px;
+              height: 0;
+              .content {
+                padding-top: 4rem;
+              }
+            }
+            > .active {
+              width: 100%;
+              height: 100vh;
+            }
+          }
+        }
+      }
+    }
+
+    @media (min-width: 992px) {
+      .ci {
+        &-side-bar {
+          &-top {
+            .toggle {
+              display: none;
+            }
+            .nav-bar-container {
+              display: flex;
+              width: 100%;
+              height: 60px;
+              //   background: lightblue;
+              transition: all 0.3s;
+              overflow-x: hidden;
+              overflow-y: hidden;
+              .content {
+                @include content-mixin-top;
+              }
+            }
+            // > .active {
+            //   width: 100%;
+            //   height: 100vh;
+            //   // background: gray !important;
+            // }
+          }
+        }
+      }
+    }
+  }
 }
